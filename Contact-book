@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string names[100];
+    string phones[100];
+    int count = 0;
+    int choice;
+
+    cout << "=== SIMPLE CONTACT BOOK ===" << endl;
+
+    while (true) {
+        cout << "\n1. Add Contact\n2. View All Contacts\n3. Search Contact\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            if (count >= 100) {
+                cout << "Contact book is full!" << endl;
+                continue;
+            }
+            cout << "Enter name: ";
+            cin.ignore();
+            getline(cin, names[count]);
+            cout << "Enter phone number: ";
+            getline(cin, phones[count]);
+            count++;
+            cout << "Contact added!" << endl;
+        }
+        else if (choice == 2) {
+            if (count == 0) {
+                cout << "No contacts found!" << endl;
+            }
+            else {
+                cout << "\n--- CONTACTS ---" << endl;
+                for (int i = 0; i < count; i++) {
+                    cout << (i+1) << ". " << names[i] << " | " << phones[i] << endl;
+                }
+            }
+        }
+        else if (choice == 3) {
+            string searchName;
+            cout << "Enter name to search: ";
+            cin.ignore();
+            getline(cin, searchName);
+
+            bool found = false;
+            for (int i = 0; i < count; i++) {
+                if (names[i].find(searchName) != string::npos) {
+                    cout << "Contact found!" << endl;
+                    cout << "Name: " << names[i] << " | Phone: " << phones[i] << endl;
+                    found = true;
+                }
+            }
+            if (!found) {
+                cout << "Contact not found!" << endl;
+            }
+        }
+        else if (choice == 4) {
+            cout << "Exiting... Goodbye!" << endl;
+            break;
+        }
+        else {
+            cout << "Invalid choice! Try again." << endl;
+        }
+    }
+
+    return 0;
+}
